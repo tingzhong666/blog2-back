@@ -4,10 +4,18 @@ const db = require('../db'),
 module.exports = new Schema({
   user_name: String,
   pass_word: String,
-  intro: new Schema({
-    img: Buffer,
-    name: String,
-    intro: String,
-    github: String
-  })
+  intro: {
+    type: new Schema({
+      img: Buffer,
+      name: String,
+      intro: String,
+      github: String
+    }),
+    default: {
+      img: '',
+      name: '',
+      intro: '',
+      github: ''
+    }
+  }
 })
