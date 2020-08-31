@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   // mongodb 配置
   mongodb: {
@@ -20,5 +22,9 @@ module.exports = {
   init: {
     username: 'admin',
     password: 'admin'
-  }
+  },
+  // 日志路径
+  logPath: path.join(__dirname, 'logs'),
+  // 日志保存天数
+  logStay: 30
 }

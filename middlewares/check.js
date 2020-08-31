@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken'),
 
 //  验证
 module.exports = function (req, res, next) {
-  const token = req.query.token || false
+  const token = req.query.token || req.body.token|| false
 
   // 未携带 token 
   if (!token) {

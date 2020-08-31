@@ -1,18 +1,20 @@
 const mongoose = require('mongoose'),
-  { mongodb: {user, pass, host, port, dataBase} } = require('../config')
+  { mongodb: {user, pass, host, port, dataBase} } = require('../config'),
+  log = require('../tools/log')
 
 
 mongoose.connect(`mongodb://${user}:${pass}@${host}:${port}/${dataBase}`, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 })
 
 mongoose.connection.on('error', () => {
-  console.error(' 数据库连接错误')
+  log.error('数据库连接错误')
 })
 
 mongoose.connection.on('open', () => {
-  console.log('数据库连接成功')
-  console.log(`mongodb://${user}:${pass}@${host}:${port}/${dataBase}`)
+  log.info('数据库连接成功')
+  log.info(`mongodb://${user}:${pass}@${host}:${port}/${dataBase}`)
 })
 
 

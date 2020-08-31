@@ -3,7 +3,7 @@ const db = require('../db'),
 
 module.exports = new Schema({
   title: String,
-  img: Buffer,
+  img: String,
   tag_id: String,
   intro: String,
   readed: Number,

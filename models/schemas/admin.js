@@ -6,7 +6,7 @@ module.exports = new Schema({
   pass_word: String,
   intro: {
     type: new Schema({
-      img: Buffer,
+      img: String,
       name: String,
       intro: String,
       github: String
