@@ -7,6 +7,9 @@ module.exports = new Schema({
   contact: String,
   email: String,
   content: String,
-  time_now: Number,
+  time_now: {
+    type: Number,
+    default: Date.now
+  },
   reply_id: String
 })

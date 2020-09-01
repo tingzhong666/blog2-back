@@ -26,5 +26,7 @@ module.exports = {
   // 日志路径
   logPath: path.join(__dirname, 'logs'),
   // 日志保存天数
-  logStay: 30
+  logStay: 30,
+  // 文件上传保存路径
+  upPath: path.join(__dirname, 'temp')
 }

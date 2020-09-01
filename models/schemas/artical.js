@@ -4,11 +4,20 @@ const db = require('../db'),
 module.exports = new Schema({
   title: String,
   img: String,
-  tag_id: String,
+  tag_id: [String],
   intro: String,
-  readed: Number,
-  time_now: Number,
-  modify_time_now: Number,
+  readed: {
+    type: Number,
+    default: 0
+  },
+  time_now: {
+    type: Number,
+    default: Date.now
+  },
+  modify_time_now: {
+    type: Number,
+    default: Date.now
+  },
   content: String,
   is_reward: Boolean,
   is_private: Boolean,
