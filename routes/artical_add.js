@@ -9,7 +9,7 @@ router.post('/artical_add', check, async (req, res) => {
     intro: req.body.intro || null,
     content: req.body.content || null,
     img: req.body.img || null,
-    tag_id: req.body.tag_id || null,
+    tag_id: req.body.tag_id ? JSON.parse(req.body.tag_id) : null,
     is_reward: req.body.is_reward || null,
     is_private: req.body.is_private || null,
     is_top: req.body.is_top || null

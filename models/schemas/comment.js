@@ -11,5 +11,9 @@ module.exports = new Schema({
     type: Number,
     default: Date.now
   },
-  reply: [require('./comment_one')]
+  reply: [require('./comment_one')],
+  level: {
+    type: Number,
+    default: 10
+  }
 })

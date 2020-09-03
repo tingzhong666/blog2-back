@@ -11,5 +11,9 @@ module.exports = new Schema({
     type: Number,
     default: Date.now
   },
-  reply_id: String
+  reply_id: String,
+  level: {
+    type: Number,
+    default: 10
+  }
 })

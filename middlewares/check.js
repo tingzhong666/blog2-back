@@ -1,5 +1,4 @@
-const jwt = require('jsonwebtoken'),
- { jwtPrivateKey } = require('../config')
+const auth = require('../tools/auth')
 
 //  验证
 module.exports = function (req, res, next) {
@@ -14,14 +13,12 @@ module.exports = function (req, res, next) {
     return
   }
 
-  // 验证 token 
-  try {
-    jwt.verify(token, jwtPrivateKey)
-  } catch(err) {
+  // 验证 token
+  if (!token) {
     res.send({
       code: -2,
       data: {},
-      err
+      msg: 'token过期或错误'
     })
     return
   }

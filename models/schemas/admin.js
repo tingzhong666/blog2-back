@@ -6,16 +6,28 @@ module.exports = new Schema({
   pass_word: String,
   intro: {
     type: new Schema({
-      img: String,
-      name: String,
-      intro: String,
-      github: String
+      img: {
+        type: String,
+        default: null
+      },
+      name: {
+        type: String,
+        default: 'admin'
+      },
+      intro: {
+        type: String,
+        default: null
+      },
+      github: {
+        type: String,
+        default: null
+      }
     }),
     default: {
-      img: '',
-      name: '',
-      intro: '',
-      github: ''
+      img: null,
+      name: 'admin',
+      intro: null,
+      github: null
     }
   }
 })
