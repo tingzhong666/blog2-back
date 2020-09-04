@@ -1,9 +1,9 @@
 const router = require('express').Router(),
-  { set } = require('../models'),
+  { complain } = require('../models'),
   check = require('../middlewares/check')
 
-// 关于说明修改
-router.post('/about', check, async (req, res) => {
+// 吐槽新增
+router.post('/complain_add', check, async (req, res) => {
   const content = req.body.content || null
 
   if (content === null) {
@@ -15,9 +15,9 @@ router.post('/about', check, async (req, res) => {
     return
   }
 
-  const docs = await set.find().exec()
-  docs[0].about = content
-  docs[0].save()
+  const doc = new complain({ content })
+  doc.save()
+
   res.send({
     code: 1,
     data: {}

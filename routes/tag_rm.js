@@ -1,5 +1,5 @@
 const router = require('express').Router(),
-  { tag } = require('../models'),
+  { tag, artical } = require('../models'),
   check = require('../middlewares/check'),
   idCheck = require('../tools/idCheck')
 
@@ -36,6 +36,15 @@ router.get('/tag_rm', check, async (req, res) => {
     })
     return
   }
+
+  // 删除含有此标签的文章的标签
+  const lists = await artical.find({ tag_id: id }).exec()
+  lists.forEach(v => {
+    let i = v.tag_id.indexOf(id)
+    v.tag_id.splice(i, 1)
+    v.save()
+  })
+
 
   res.send({
     code: 1,

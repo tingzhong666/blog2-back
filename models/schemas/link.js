@@ -4,6 +4,5 @@ const db = require('../db'),
 module.exports = new Schema({
   name: String,
   link: String,
-  is_valid: Boolean,
-  is_expire: Boolean
+  is_valid: Boolean
 })

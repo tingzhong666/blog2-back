@@ -1,13 +1,12 @@
 const router = require('express').Router(),
-  { artical, admin } = require('../models'),
+  { admin, msg } = require('../models'),
   auth = require('../tools/auth'),
   idCheck = require('../tools/idCheck')
 
-// 文章评论新增
-router.post('/comment_add', async (req, res) => {
+// 留言新增
+router.post('/msg_add', async (req, res) => {
   // 必须参数
   const body = {
-    id: req.body.id || null,
     name: req.body.name || null,
     content: req.body.content || null
   },
@@ -31,25 +30,6 @@ router.post('/comment_add', async (req, res) => {
     }
   }
 
-  if (!idCheck(body.id)) {
-    res.send({
-      code: 0,
-      msg: '文章id错误',
-      data: {}
-    })
-    return
-  }
-
-  const docs = await artical.find({ _id: body.id }).exec()
-  if (!docs.length) {
-    res.send({
-      code: 0,
-      msg: '文章id找不到',
-      data: {}
-    })
-    return
-  }
-
   // 是否管理员 1 管理员 10 游客
   let level = 1
   if (token === null || !auth(token)) level = 10
@@ -59,13 +39,14 @@ router.post('/comment_add', async (req, res) => {
 
   // 一维评论
   if (body2.comment_id === null) {
-    docs[0].comment.push({
+    const doc = new msg({
       name,
       content: body.content,
       contact: body2.contact,
       email: body2.email,
       level
     })
+    doc.save()
   } else {
     // 二维回复
     if (!idCheck(body2.comment_id)) {
@@ -85,7 +66,7 @@ router.post('/comment_add', async (req, res) => {
       return
     }
 
-    const replies = await docs[0].comment.id(body2.comment_id)
+    const replies = await msg.findById(body2.comment_id)
     if (replies === null) {
       res.send({
         code: 0,
@@ -94,7 +75,6 @@ router.post('/comment_add', async (req, res) => {
       })
       return
     }
-
 
     if (body2.reply_id !== null) {
       const replies2 = await replies.reply.id(body2.reply_id)
@@ -116,8 +96,9 @@ router.post('/comment_add', async (req, res) => {
       reply_id: body2.reply_id,
       level
     })
+
+    replies.save()
   }
-  docs[0].save()
 
   res.send({
     code: 1,

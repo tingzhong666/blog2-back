@@ -1,13 +1,12 @@
 const router = require('express').Router(),
-  { artical } = require('../models'),
+  { link_apply: linkApply } = require('../models'),
   idCheck = require('../tools/idCheck'),
   check = require('../middlewares/check')
 
-// 文章评论删除
-router.get('/comment_rm', check, async (req, res) => {
+// 友链申请删除
+router.get('/link_apply_rm', check, async (req, res) => {
   // 必须参数
   const body = {
-    id: req.query.id || null,
     comment_id: req.query.comment_id || null
   },
     // 可选
@@ -26,15 +25,6 @@ router.get('/comment_rm', check, async (req, res) => {
     }
   }
 
-  if (!idCheck(body.id)) {
-    res.send({
-      code: 0,
-      msg: '文章id错误',
-      data: {}
-    })
-    return
-  }
-
   if (!idCheck(body.comment_id)) {
     res.send({
       code: 0,
@@ -44,8 +34,7 @@ router.get('/comment_rm', check, async (req, res) => {
     return
   }
 
-  const docs = await artical.find({ _id: body.id })
-  const comment = await docs[0].comment.id(body.comment_id)
+  const comment = await linkApply.findById(body.comment_id)
   if (comment === null) {
     res.send({
       code: 0,
@@ -55,7 +44,7 @@ router.get('/comment_rm', check, async (req, res) => {
     return
   }
   // 一维评论
-  if (body2.reply_id === null) comment.remove()
+  if (body2.reply_id === null) await comment.deleteOne()
   else {
     // 二维回复
     if (!idCheck(body2.reply_id)) {
@@ -78,8 +67,8 @@ router.get('/comment_rm', check, async (req, res) => {
     }
 
     reply.remove()
+    comment.save()
   }
-  docs[0].save()
 
   res.send({
     code: 1,

@@ -20,18 +20,7 @@ const main = async function () {
   log.info('admin init completed!')
 
   // 创建基本信息
-  doc = new set({
-    foot: '',
-    is_reward: true,
-    reward_alipay: '',
-    reward_wechat: '',
-    reward_qq: '',
-    about: '',
-    email: '',
-    email_password: '',
-    link_update_check: 0,
-    link_apply: ''
-  })
+  doc = new set({})
   await doc.save()
   log.info('set init completed!')
   
