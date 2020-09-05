@@ -1,21 +1,20 @@
 const router = require('express').Router(),
-  { artical, admin } = require('../models'),
-  auth = require('../tools/auth'),
+  { complain, admin } = require('../models'),
+  idCheck = require('../tools/idCheck'),
   news = require('../tools/news'),
-  idCheck = require('../tools/idCheck')
+  auth = require('../tools/auth')
 
-// 文章评论新增
-router.post('/comment_add', async (req, res) => {
+// 吐槽评论新增
+router.post('/complain_reply_add', async (req, res) => {
   // 必须参数
   const body = {
-    id: req.body.id || null,
+    id: req.body.id,
     name: req.body.name || null,
     content: req.body.content || null
   },
     // 可选
     body2 = {
       comment_id: req.body.comment_id || null,
-      reply_id: req.body.reply_id || null,
       contact: req.body.contact || null,
       email: req.body.email || null
     },
@@ -35,17 +34,17 @@ router.post('/comment_add', async (req, res) => {
   if (!idCheck(body.id)) {
     res.send({
       code: 0,
-      msg: '文章id错误',
+      msg: '吐槽id错误',
       data: {}
     })
     return
   }
 
-  const docs = await artical.find({ _id: body.id }).exec()
+  const docs = await complain.find({ _id: body.id }).exec()
   if (!docs.length) {
     res.send({
       code: 0,
-      msg: '文章id找不到',
+      msg: '吐槽id找不到',
       data: {}
     })
     return
@@ -58,29 +57,12 @@ router.post('/comment_add', async (req, res) => {
   let  name = (await admin.find().exec())[0].intro.name
   name = level === 10 ? body.name : name
 
-  // 一维评论
-  if (body2.comment_id === null) {
-    docs[0].comment.push({
-      name,
-      content: body.content,
-      contact: body2.contact,
-      email: body2.email,
-      level
-    })
-  } else {
+  if (body2.comment_id !== null) {
     // 二维回复
     if (!idCheck(body2.comment_id)) {
       res.send({
         code: 0,
-        msg: 'comment_id一维评论id错误',
-        data: {}
-      })
-      return
-    }
-    if (body2.reply_id !== null && !idCheck(body2.reply_id)) {
-      res.send({
-        code: 0,
-        msg: 'reply_id二维评论id错误',
+        msg: '吐槽评论comment_id错误',
         data: {}
       })
       return
@@ -90,41 +72,30 @@ router.post('/comment_add', async (req, res) => {
     if (replies === null) {
       res.send({
         code: 0,
-        msg: 'comment_id一维评论id找不到',
+        msg: '吐槽评论comment_id一维评论id找不到',
         data: {}
       })
       return
     }
-
-
-    if (body2.reply_id !== null) {
-      const replies2 = await replies.reply.id(body2.reply_id)
-      if (replies2 === null) {
-        res.send({
-          code: 0,
-          msg: 'reply_id二维评论id找不到',
-          data: {}
-        })
-        return
-      }
-    }
-
-    replies.reply.push({
-      name,
-      contact: body2.contact,
-      email: body2.email,
-      content: body.content,
-      reply_id: body2.reply_id,
-      level
-    })
   }
+
+  // 一维评论
+  docs[0].comment.push({
+    name,
+    content: body.content,
+    contact: body2.contact,
+    email: body2.email,
+    reply_id: body2.comment_id,
+    level
+  })
+
   docs[0].save()
 
   // 消息新增
   news({
-    n: 1,
+    n: 3,
     content: body.content,
-    title: docs.title,
+    title: docs.content,
     originalId: body.id
   })
 
@@ -133,5 +104,6 @@ router.post('/comment_add', async (req, res) => {
     data: {}
   })
 })
+
 
 module.exports = router

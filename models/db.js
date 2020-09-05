@@ -5,7 +5,8 @@ const mongoose = require('mongoose'),
 
 mongoose.connect(`mongodb://${user}:${pass}@${host}:${port}/${dataBase}`, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 })
 
 mongoose.connection.on('error', () => {

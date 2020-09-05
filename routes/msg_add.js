@@ -1,6 +1,7 @@
 const router = require('express').Router(),
   { admin, msg } = require('../models'),
   auth = require('../tools/auth'),
+  news = require('../tools/news'),
   idCheck = require('../tools/idCheck')
 
 // 留言新增
@@ -99,6 +100,12 @@ router.post('/msg_add', async (req, res) => {
 
     replies.save()
   }
+
+  // 消息新增
+  news({
+    n: 4,
+    content: body.content
+  })
 
   res.send({
     code: 1,

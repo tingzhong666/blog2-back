@@ -4,6 +4,12 @@ const db = require('../db'),
 module.exports = new Schema({
   content: String,
   class_id: String,
-  time_now: Number,
-  is_readed: Boolean
+  time_now: {
+    type: Number,
+    default: Date.now
+  },
+  is_readed: {
+    type: Boolean,
+    default: false
+  }
 })

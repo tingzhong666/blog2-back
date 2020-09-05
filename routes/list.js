@@ -101,14 +101,9 @@ router.get('/lsit', async (req, res) => {
   docs.sort(sortFunc)
 
   // 按 page 页码 limit 条数截取
-  let data = []
-  for (let i = 0; i < body.limit; i ++) {
-    let index = (body.page - 1) * body.limit + i
-    // 若是索引大于 列表数组长度 则中断
-    if (index > docs.length - 1) break
-
-    data.push(docs[index])
-  }
+  let startIndex = (body.page - 1) * body.limit,
+    endIndex = body.page * body.limit
+  let data = docs.slice(startIndex, endIndex)
 
   // 参数处理
   data = data.map(async v => {

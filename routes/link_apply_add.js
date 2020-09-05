@@ -1,10 +1,11 @@
 const router = require('express').Router(),
   { admin, link_apply: linkApply } = require('../models'),
   auth = require('../tools/auth'),
+  news = require('../tools/news'),
   idCheck = require('../tools/idCheck')
 
 // 友链申请新增
-router.post('/link_apply', async (req, res) => {
+router.post('/link_apply_add', async (req, res) => {
   // 必须参数
   const body = {
     name: req.body.name || null,
@@ -99,6 +100,12 @@ router.post('/link_apply', async (req, res) => {
 
     replies.save()
   }
+
+  // 消息新增
+  news({
+    n: 2,
+    content: body.content
+  })
 
   res.send({
     code: 1,

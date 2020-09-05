@@ -1,5 +1,5 @@
 const { init } = require('./config'),
-  { admin, set } = require('./models'),
+  { admin, set, news_class: newsClass } = require('./models'),
   md5 = require('md5'),
   db = require('./models/db'),
   log = require('./tools/log')
@@ -23,6 +23,17 @@ const main = async function () {
   doc = new set({})
   await doc.save()
   log.info('set init completed!')
+
+  // 消息分类创建
+  doc = new newsClass({ name: '文章评论' })
+  await doc.save()
+  doc = new newsClass({ name: '友链申请' })
+  await doc.save()
+  doc = new newsClass({ name: '吐槽评论' })
+  await doc.save()
+  doc = new newsClass({ name: '留言' })
+  await doc.save()
+  log.info('newsClass init completed!')
   
   db.connection.close()
 }

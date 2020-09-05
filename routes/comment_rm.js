@@ -45,6 +45,15 @@ router.get('/comment_rm', check, async (req, res) => {
   }
 
   const docs = await artical.find({ _id: body.id })
+  if (!docs.length) {
+    res.send({
+      code: 0,
+      msg: '文章id找不到',
+      data: {}
+    })
+    return
+  }
+  
   const comment = await docs[0].comment.id(body.comment_id)
   if (comment === null) {
     res.send({

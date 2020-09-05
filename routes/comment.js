@@ -38,7 +38,7 @@ router.get('/comment', async (req, res) => {
     return
   }
 
-  let data = []
+  let data
   // 排序 时间倒序
   docs[0].comment.sort((a, b) => b.time_now - a.time_now)
 
@@ -46,15 +46,39 @@ router.get('/comment', async (req, res) => {
   if (body.limit == -1) data = docs[0].comment
   else {
     // 截取部分
-    for (let i = 0; i < body.limit; i++) {
-      // 按page指定页数开始
-      let index = (body.page - 1) * body.limit + i
-      
-      // 如果本页 回复 不足 limit 条数 直接中断
-      if (index + 1 > docs[0].comment.length) break
+    let startIndex = (body.page - 1) * body.limit,
+    endIndex = body.page * body.limit
+    data = docs[0].comment.slice(startIndex, endIndex).map(async v => {
+      let reply = v.reply.map(async r => {
+        let reply_name = await v.reply.id(r.reply_id)
+        if (reply_name !== null) reply_name = reply_name.name
+        return {
+          id: r._id,
+          name: r.name,
+          contact: r.contact,
+          email: r.email,
+          content: r.content,
+          created_time: r.time_now,
+          reply_id: r.reply_id,
+          reply_name,
+          level: r.level
+        }
+      })
+      reply = await Promise.all(reply)
 
-      data.push(docs[0].comment[index])
-    }
+      return {
+        id: v._id,
+        name: v.name,
+        contact: v.contact,
+        email: v.email,
+        content: v.content,
+        created_time: v.time_now,
+        level: v.level,
+        reply
+      }
+    })
+
+    data = await Promise.all(data)
   }
 
   res.send({
