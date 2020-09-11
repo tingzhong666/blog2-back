@@ -5,7 +5,11 @@ const express = require('express'),
   router = require('./routes'),
   log = require('./tools/log')
 
-app.use(bodyParser.json())
+app.use(async (req, res, next) => {
+  res.setHeader('access-control-allow-origin', config.acrossDoamnOrigin)
+  next()
+})
+  .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: false }))
   .use(bodyParser.raw())
   .use(router)

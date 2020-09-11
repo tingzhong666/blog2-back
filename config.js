@@ -1,6 +1,8 @@
 const path = require('path')
 
 module.exports = {
+  // 跨域源配置 * 表示所有 -- 格式为 http:域名:端口 -- or -- https:域名 -- 允许使用正则
+  acrossDoamnOrigin: '*',
   // mongodb 配置
   mongodb: {
     // 数据库地址
