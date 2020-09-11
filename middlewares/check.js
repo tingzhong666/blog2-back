@@ -14,7 +14,7 @@ module.exports = function (req, res, next) {
   }
 
   // 验证 token
-  if (!token) {
+  if (!auth(token)) {
     res.send({
       code: -2,
       data: {},
