@@ -7,6 +7,7 @@ const express = require('express'),
 
 app.use(async (req, res, next) => {
   res.setHeader('access-control-allow-origin', config.acrossDoamnOrigin)
+  res.setHeader('access-control-allow-headers', '*')
   next()
 })
   .use(bodyParser.json())
