@@ -11,7 +11,7 @@ router.post('/login', async (req, res) => {
     time = req.body.time || 604800000 // 默认 7 天
   
   // 用户名或密码为空
-  if (!username | !password) {
+  if (!username || !password) {
     res.send({
       code: -1,
       data: {}
