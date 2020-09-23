@@ -29,7 +29,9 @@ router.post('/upload', check, upload.array('files'), async (req, res) => {
 
   res.send({
     code: 1,
-    data: {}
+    data: {
+      url: req.files[0].path
+    }
   })
 })
 
