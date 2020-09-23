@@ -14,7 +14,8 @@ router.get('/set', async (req, res) => {
         wx: docs[0].reward_wechat,
         qq: docs[0].reward_qq
       },
-      email: docs[0].email
+      email: docs[0].email,
+      email_password: docs[0].email_password
     }
   })
 })
