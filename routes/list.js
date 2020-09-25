@@ -4,7 +4,7 @@ const router = require('express').Router(),
 
 // 文章列表、文章查询
 router.get('/list', async (req, res) => {
-  const body = {
+  let body = {
     limit: req.query.limit || 10,
     page: req.query.page || 1,
     tag: req.query.tag || 0,
@@ -12,6 +12,16 @@ router.get('/list', async (req, res) => {
     time: req.query.time || -1,
     power: req.query.power || 0,
     sort: req.query.sort || 1
+  }
+
+  body = {
+    limit: body.limit * 1,
+    page: body.page * 1,
+    tag: body.tag * 1,
+    q: body.q,
+    time: body.time * 1,
+    power: body.power * 1,
+    sort: body.sort * 1
   }
 
   // 查询条件
