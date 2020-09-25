@@ -10,9 +10,9 @@ router.post('/artical_modify', check, async (req, res) => {
     title: req.body.title || null,
     intro: req.body.intro || null,
     content: req.body.content || null,
-    is_reward: req.body.is_reward || null,
-    is_private: req.body.is_private || null,
-    is_top: req.body.is_top || null,
+    is_reward: req.body.is_reward === undefined ? null : !!req.body.is_reward,
+    is_private: req.body.is_private === undefined ? null : !!req.body.is_private,
+    is_top: req.body.is_top === undefined ? null : !!req.body.is_top,
     modify_time_now: Date.now()
   },
     body2 = {
