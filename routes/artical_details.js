@@ -34,13 +34,15 @@ router.get('/artical_details', async (req, res) => {
     return
   }
 
-  const tags = docs[0].tag_id.map(async v => {
+  let tags = docs[0].tag_id.map(async v => {
     let docs = await tag.find({ _id: v }).exec()
     return {
       id: v,
       name: docs[0].tag_name
     }
   })
+
+  tags = await Promise.all(tags)
 
   res.send({
     code: 1,
