@@ -3,7 +3,7 @@ const router = require('express').Router(),
   idCheck = require('../tools/idCheck')
 
 // 文章列表、文章查询
-router.get('/lsit', async (req, res) => {
+router.get('/list', async (req, res) => {
   const body = {
     limit: req.query.limit || 10,
     page: req.query.page || 1,
