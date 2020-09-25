@@ -55,7 +55,7 @@ router.post('/artical_modify', check, async (req, res) => {
     docs[0][k] = body[k]
   }
   for (let k in body2) {
-    docs[0][k] = body[k]
+    docs[0][k] = body2[k]
   }
   docs[0].save()
   
