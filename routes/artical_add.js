@@ -13,7 +13,7 @@ router.post('/artical_add', check, async (req, res) => {
     is_top: req.body.is_top || null
   },
     body2 = {
-      tag_id: req.body.tag_id ? JSON.parse(req.body.tag_id) : [],
+      tag_id: req.body.tag_id || [],
       img: req.body.img || null
     }
 
