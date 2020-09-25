@@ -10,17 +10,18 @@ router.post('/artical_modify', check, async (req, res) => {
     title: req.body.title || null,
     intro: req.body.intro || null,
     content: req.body.content || null,
-    img: req.body.img || null,
-    tag_id: req.body.tag_id || null,
     is_reward: req.body.is_reward || null,
     is_private: req.body.is_private || null,
     is_top: req.body.is_top || null,
     modify_time_now: Date.now()
-  }
+  },
+    body2 = {
+      img: req.body.img || null,
+      tag_id: req.body.tag_id || []
+    }
 
   for (let k in body) {
-    // tag_id 参数是可选的
-    if (body[k] === null && k != 'tag_id') {
+    if (body[k] === null) {
       res.send({
         code: 0,
         msg: k + '参数未传或为空',
@@ -50,11 +51,10 @@ router.post('/artical_modify', check, async (req, res) => {
   }
 
   for (let k in body) {
-    if (k === 'tag_id') {
-      docs[0].tag_id = body.tag_id || []
-      continue
-    }
     if (k === 'id') continue
+    docs[0][k] = body[k]
+  }
+  for (let k in body2) {
     docs[0][k] = body[k]
   }
   docs[0].save()
