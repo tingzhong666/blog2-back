@@ -54,7 +54,7 @@ router.get('/artical_details', async (req, res) => {
       tag: tags,
       readed: docs[0].readed,
       modify_time: docs[0].modify_time_now,
-      is_reword: docs[0].is_reword,
+      is_reward: docs[0].is_reward,
       is_private: docs[0].is_private,
       is_top: docs[0].is_top
     }
