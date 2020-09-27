@@ -13,10 +13,15 @@ app.use(async (req, res, next) => {
 })
   // 静态图像文件请求
   .use('/temp', express.static(path.join(__dirname, './temp')))
+  .use('/admin/static', express.static(path.join(__dirname, './admin/static')))
+  .use('/admin/favicon.ico', express.static(path.join(__dirname, './admin/favicon.ico')))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: false }))
   .use(bodyParser.raw())
-  .use(router)
+  .use('/api', router)
+  .get('/admin', async (req, res) => {
+    res.sendFile(path.join(__dirname, './admin/index.html'))
+  })
 
 app.listen(config.port, () => {
   log.info('run...  port:' + config.port)

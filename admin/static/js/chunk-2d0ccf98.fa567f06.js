@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0ccf98"],{"4fe5":function(e,t,a){"use strict";a.r(t);var c=function(){var e=this,t=e.$createElement,a=e._self._c||t;return a("el-card",{staticClass:"page"},[a("div",{attrs:{slot:"header"},slot:"header"},[a("h2",[e._v("友链管理")])]),e._v(" 内容 ")])},s=[],n={},r=n,l=a("2877"),o=Object(l["a"])(r,c,s,!1,null,"11c5b771",null);t["default"]=o.exports}}]);
+//# sourceMappingURL=chunk-2d0ccf98.fa567f06.js.map

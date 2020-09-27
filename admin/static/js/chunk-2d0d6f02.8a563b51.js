@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0d6f02"],{"754b":function(e,t,a){"use strict";a.r(t);var s=function(){var e=this,t=e.$createElement,a=e._self._c||t;return a("el-card",{staticClass:"page"},[a("div",{attrs:{slot:"header"},slot:"header"},[a("h2",[e._v("关于说明")])]),e._v(" 内容 ")])},n=[],c={},r=c,l=a("2877"),d=Object(l["a"])(r,s,n,!1,null,"50c7a1a8",null);t["default"]=d.exports}}]);
+//# sourceMappingURL=chunk-2d0d6f02.8a563b51.js.map

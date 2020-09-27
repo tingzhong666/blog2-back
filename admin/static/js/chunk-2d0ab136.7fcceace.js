@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0ab136"],{1474:function(e,t,a){"use strict";a.r(t);var s=function(){var e=this,t=e.$createElement,a=e._self._c||t;return a("el-card",{staticClass:"page"},[a("div",{attrs:{slot:"header"},slot:"header"},[a("h2",[e._v("消息列表")])]),e._v(" 内容 ")])},c=[],n={},r=n,l=a("2877"),o=Object(l["a"])(r,s,c,!1,null,"c979c062",null);t["default"]=o.exports}}]);
+//# sourceMappingURL=chunk-2d0ab136.7fcceace.js.map
