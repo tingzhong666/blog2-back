@@ -92,10 +92,10 @@ router.get('/list', async (req, res) => {
   // 排序
   let sortFunc
   switch (body.sort) {
-    case 1: sortFunc = function (a, b) { b.time_now - a.time_now }; break // 时间降序
-    case 2: sortFunc = function (a, b) { a.time_now - b.time_now }; break // 时间升序
-    case 3: sortFunc = function (a, b) { b.readed - a.readed }; break // 浏览量降序
-    case 4: sortFunc = function (a, b) { a.readed - b.readed }; break // 浏览量升序
+    case 1: sortFunc = (a, b) => b.time_now - a.time_now; break // 时间降序
+    case 2: sortFunc = (a, b) => a.time_now - b.time_now; break // 时间升序
+    case 3: sortFunc = (a, b) => b.readed - a.readed; break // 浏览量降序
+    case 4: sortFunc = (a, b) => a.readed - b.readed; break // 浏览量升序
     default:
       res.send({
         code: 0,
