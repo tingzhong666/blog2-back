@@ -136,7 +136,8 @@ router.get('/list', async (req, res) => {
       is_reward: v.is_reward,
       is_top: v.is_top,
       is_private: v.is_private,
-      tag: tagV
+      tag: tagV,
+      intro: v.intro
     }
   })
   data = await Promise.all(data)
