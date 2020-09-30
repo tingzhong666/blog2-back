@@ -38,7 +38,7 @@ router.get('/comment', async (req, res) => {
     return
   }
 
-  let data
+  let data, n = docs[0].comment.length
   // 排序 时间倒序
   docs[0].comment.sort((a, b) => b.time_now - a.time_now)
 
@@ -84,7 +84,7 @@ router.get('/comment', async (req, res) => {
   res.send({
     code: 1,
     data,
-    n: data.length
+    n
   })
 })
 
