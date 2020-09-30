@@ -83,7 +83,8 @@ router.get('/comment', async (req, res) => {
 
   res.send({
     code: 1,
-    data
+    data,
+    n: data.length
   })
 })
 
