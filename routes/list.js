@@ -17,7 +17,7 @@ router.get('/list', async (req, res) => {
   body = {
     limit: body.limit * 1,
     page: body.page * 1,
-    tag: body.tag * 1,
+    tag: body.tag,
     q: body.q,
     time: body.time * 1,
     power: body.power * 1,
